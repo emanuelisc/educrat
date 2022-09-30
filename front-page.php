@@ -2,12 +2,9 @@
 get_header();
 ?>
 
-<section class="video1">
+<!-- <section class="video1">
     <div id="video-viewport">
         <a id="youtube-popup" class="btn-video"></a>
-        <video autoplay="" muted="" loop="" playsinline="">
-            <source src="<?= get_stylesheet_directory_uri(); ?>/assets/video/1_v2.mp4" type="video/mp4">
-        </video>
     </div>
 </section>
 
@@ -15,62 +12,62 @@ get_header();
     <div class="popup-content">
         <div class="bg-curtain"></div>
         <div id="player"></div>
-        <!-- <iframe width="1904" height="741" src="https://www.youtube.com/embed/HwxFt0AkUw8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>         -->
+
         <div class="close-container custom-cursor">
             <div class="line line-1"></div>
             <div class="line line-2"></div>
             <div class="line line-3"></div>
         </div>
     </div>
-</div>
+</div> -->
 
 <script>
-    var tag = document.createElement('script');
+    // var tag = document.createElement('script');
 
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    // tag.src = "https://www.youtube.com/iframe_api";
+    // var firstScriptTag = document.getElementsByTagName('script')[0];
+    // firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    // 3. This function creates an <iframe> (and YouTube player)
-    //    after the API code downloads.
-    var player;
+    // // 3. This function creates an <iframe> (and YouTube player)
+    // //    after the API code downloads.
+    // var player;
 
-    function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-            height: '741',
-            width: '640',
-            videoId: '<?php the_field('popup_youtube_video'); ?>',
-            playerVars: {
-                'playsinline': 1
-            },
-            events: {
-                //   'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange
-            }
-        });
-    }
+    // function onYouTubeIframeAPIReady() {
+    //     player = new YT.Player('player', {
+    //         height: '741',
+    //         width: '640',
+    //         videoId: '<?php the_field('popup_youtube_video'); ?>',
+    //         playerVars: {
+    //             'playsinline': 1
+    //         },
+    //         events: {
+    //             //   'onReady': onPlayerReady,
+    //             'onStateChange': onPlayerStateChange
+    //         }
+    //     });
+    // }
 
-    // 4. The API will call this function when the video player is ready.
-    function onPlayerReady(event) {
-        event.target.playVideo();
-    }
+    // // 4. The API will call this function when the video player is ready.
+    // function onPlayerReady(event) {
+    //     event.target.playVideo();
+    // }
 
-    function startVideo() {
-        player.playVideo();
-    }
+    // function startVideo() {
+    //     player.playVideo();
+    // }
 
-    var done = false;
+    // var done = false;
 
-    function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-            setTimeout(stopVideo, 60000);
-            done = true;
-        }
-    }
+    // function onPlayerStateChange(event) {
+    //     if (event.data == YT.PlayerState.PLAYING && !done) {
+    //         setTimeout(stopVideo, 60000);
+    //         done = true;
+    //     }
+    // }
 
-    function stopVideo() {
-        player.stopVideo();
-    }
+    // function stopVideo() {
+    //     player.stopVideo();
+    // }
 </script>
 
 <?php
@@ -93,44 +90,8 @@ if ($loop->have_posts()) :
                 <?php while ($loop->have_posts()) : $loop->the_post(); ?>
                     <div class="owl-item">
                         <?php
-                        // Product meta
-                        $_product = wc_get_product(get_the_ID());
-                        $regular_price = $_product->get_regular_price();
-                        $sale_price = $_product->get_sale_price();
-                        $price = $_product->get_price();
-                        // Author meta
-                        $author_id = get_post_field('post_author', get_the_ID());
-                        $author_name = get_the_author_meta('first_name', $author_id);
-                        $last_name = get_the_author_meta('last_name', $author_id);
-                        if ($last_name) {
-                            $author_name .= ' ' . $last_name;
-                        }
-                        $image = get_the_post_thumbnail_url(get_the_ID(), 'large');
-                        if (!$image) {
-                            $image = get_stylesheet_directory_uri() . '/assets/img/default-product.png';
-                        }
+                        get_template_part('components/product/loop', get_post_format(), array());
                         ?>
-                        <div class="product-card">
-                            <a href="<?php the_permalink(); ?>" class="image-container">
-                                <div class="hover-mask"></div>
-                                <img src="<?= $image ?>" alt="">
-                            </a>
-                            <div class="product-info">
-                                <div class="stars"></div>
-                                <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
-                                <div class="status"></div>
-                                <div class="info">
-                                    <div class="author"><img src="<?php echo get_stylesheet_directory_uri() . '/assets/img/default_user.png'; ?>" alt=""><?= $author_name ?></div>
-                                    <div class="price">
-                                        <?php if ($sale_price == '') { ?>
-                                            $<?= $price ?>
-                                        <?php } else { ?>
-                                            <span>$<?= $regular_price ?></span> $<?= $sale_price ?>
-                                        <?php } ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 <?php endwhile; ?>
             </div>

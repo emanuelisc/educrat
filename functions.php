@@ -10,6 +10,8 @@ $enable_ppd = true;
 global $theme_dir;
 $theme_dir = get_stylesheet_directory();
 
+require $theme_dir . '/inc/init.php';
+
 // include('includes/sf_crm.php');
 
 
@@ -55,7 +57,6 @@ function add_favicon()
     echo '<link rel="icon" href="' . $favicon_url . '" type="image/x-icon">';
 }
 
-include('inc/init.php');
 
 // Remove visual composer from front page
 add_action('wp_enqueue_scripts', 'remove_vc_from_front_page', 20);

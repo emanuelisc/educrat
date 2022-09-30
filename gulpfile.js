@@ -3,8 +3,6 @@
  *
  * Gulp v4 with WordPress.
  *
- * @author OriHive
- * @version 2.0.0
  */
 
 
@@ -48,7 +46,7 @@ var jsSrc = './src/js/*.js'; // Path to .js files.
 var cssDest = './assets/css/'; // Path to place the compiled css files.
 var jsDest = './assets/js/'; // Path to place the compiled js files.
 
-var bumpFile = './assets.php'; // Script and styles enque file, need to be separate to avoid infinite loop while bumping
+var bumpFile = './inc/assets.php'; // Script and styles enque file, need to be separate to avoid infinite loop while bumping
 var phpFiles = ['./**/*.php', '!' + bumpFile]; // Path to all PHP files, ignore Script and styles enque file to avoid infinite loop while bumping
 
 var timeOffset = 180;
@@ -57,8 +55,9 @@ var timeOffset = 180;
     Deployment variabes
 */
 
-var dev_deployment_location = '/site/wwwroot/wp-content/themes/educrat/';
-var prod_deployment_location = '/site/wwwroot/wp-content/themes/educrat/';
+var dev_deployment_location = '/public_html/wp-content/themes/educrat/';
+// var dev_deployment_location = '/site/wwwroot/wp-content/themes/educrat/';
+// var prod_deployment_location = '/site/wwwroot/wp-content/themes/educrat/';
 
 
 var deployConfigFile = './deploy.json';
